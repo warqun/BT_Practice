@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class AIFollow : MonoBehaviour
 {
-    public Transform playerPos; // 추적할 플레이어
+    public Transform playerPos; // ??? ????
     private GameObject player;
-    public float moveSpeed = 3f; // 이동 속도
-    public float stoppingDistance = 1f; // 플레이어와의 최소 거리
+    public float moveSpeed = 3f; // ?? ??
+    public float stoppingDistance = 1f; // ?????? ?? ??
 
     private void Start()
     {

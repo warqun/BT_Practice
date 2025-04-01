@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target; // ÃßÀûÇÒ ¿ÀºêÁ§Æ®
-    public float smoothSpeed = 0.125f; // Lerp ¼Óµµ
-    public Vector3 offset; // Ä«¸Ş¶ó ¿ÀÇÁ¼Â
+    public Transform target; // ì¶”ì í•  ì˜¤ë¸Œì íŠ¸
+    public float smoothSpeed = 0.125f; // Lerp ì†ë„
+    public Vector3 offset; // ì¹´ë©”ë¼ ì˜¤í”„ì…‹
 
-    private Quaternion initialRotation; // ÃÊ±â È¸Àü°ª ÀúÀå
+    private Quaternion initialRotation; // ì´ˆê¸° íšŒì „ê°’ ì €ì¥
 
     void Start()
     {
@@ -22,7 +22,7 @@ public class CameraFollow : MonoBehaviour
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
         transform.position = smoothedPosition;
 
-        // Å¸°ÙÀ» ¹Ù¶óº¸µµ·Ï ¼³Á¤
+        // íƒ€ê²Ÿì„ ë°”ë¼ë³´ë„ë¡ ì„¤ì •
         transform.LookAt(target);
     }
 }
