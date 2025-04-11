@@ -17,7 +17,7 @@ public class SpawnerAuthoring : MonoBehaviour
         Gizmos.DrawWireCube(transform.position + areaCenter, areaSize);
     }
 
-    class Baker : Baker<SpawnerAuthoring>
+    public class Baker : Baker<SpawnerAuthoring>
     {
         public override void Bake(SpawnerAuthoring authoring)
         {

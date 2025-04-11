@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8120778543459894190}
-  - component: {fileID: 1463003567271157075}
+  - component: {fileID: 3190832242386734008}
   m_Layer: 0
   m_Name: MobSpawner
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1463003567271157075
+--- !u!114 &3190832242386734008
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,5 +47,5 @@ MonoBehaviour:
   prefab: {fileID: 0}
   areaCenter: {x: 0, y: 0, z: 0}
   areaSize: {x: 10, y: 0, z: 10}
-  spawnInterval: 0.1
+  spawnInterval: 2
   fixedY: 0
