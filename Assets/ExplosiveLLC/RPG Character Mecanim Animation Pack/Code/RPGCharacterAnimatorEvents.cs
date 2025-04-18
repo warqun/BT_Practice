@@ -39,7 +39,7 @@ namespace RPGCharacterAnims
         public void WeaponSwitch() => OnWeaponSwitch.Invoke();
 
         // Used for animations that contain root motion to drive the character’s
-		// position and rotation using the “Motion” node of the animation file.
+		// position and rotation using the “Motion?node of the animation file.
 		void OnAnimatorMove()
 		{
 			if (!animator) { return; }
