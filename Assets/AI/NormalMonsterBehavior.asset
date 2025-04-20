@@ -1,5 +1,75 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8142297955601603297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db920e62f70f420bb33c771449926fa4, type: 3}
+  m_Name: NormalMonsterBehavior
+  m_EditorClassIdentifier: 
+  Graphs:
+  - rid: 2768364727399874635
+  RootGraph:
+    rid: 2768364727399874635
+  m_DebugInfo: {fileID: -3523047351686141773}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 2768364727399874635
+      type: {class: BehaviorGraphModule, ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        AuthoringAssetID:
+          m_Value0: 15324770234610459564
+          m_Value1: 6816415116410404776
+        m_DebugInfo: {fileID: 0}
+        Root:
+          rid: 2768364727399874636
+        BlackboardReference:
+          rid: 2768364727399874637
+        BlackboardGroupReferences: []
+        ProcessedNodes: []
+        m_RunningNodes: []
+        m_NodesToEnd:
+          rid: 2768364727399874638
+        m_EndedNodes:
+          rid: 2768364727399874639
+        m_VersionTimestamp: 0
+    - rid: 2768364727399874636
+      type: {class: Start, ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        ID:
+          m_Value0: 13025767587676689012
+          m_Value1: 17570907200456889607
+        Graph:
+          rid: 2768364727399874635
+        m_Parent:
+          rid: -2
+        m_Child:
+          rid: -2
+        Repeat: 1
+    - rid: 2768364727399874637
+      type: {class: BlackboardReference, ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        m_Blackboard:
+          rid: 2768364727399874640
+        m_Source: {fileID: -6661099801938343944}
+    - rid: 2768364727399874638
+      type: {class: 'Stack`1[[Unity.Behavior.Node, Unity.Behavior]]', ns: System.Collections.Generic, asm: mscorlib}
+      data: 
+    - rid: 2768364727399874639
+      type: {class: 'HashSet`1[[Unity.Behavior.Node, Unity.Behavior]]', ns: System.Collections.Generic, asm: System.Core}
+      data: 
+    - rid: 2768364727399874640
+      type: {class: Blackboard, ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        m_Variables: []
 --- !u!114 &-7938853657775057945
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13,16 +83,27 @@ MonoBehaviour:
   m_Name: NormalMonsterBehavior Blackboard
   m_EditorClassIdentifier: 
   AssetID:
-    m_Value0: 0
-    m_Value1: 0
-  m_Variables: []
+    m_Value0: 15324770234610459564
+    m_Value1: 6816415116410404776
+  m_Variables:
+  - rid: 2768364727399874634
   m_VersionTimestamp: 0
   m_CommandBuffer:
     m_Commands: []
   m_RuntimeBlackboardAsset: {fileID: -6661099801938343944}
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 2768364727399874634
+      type: {class: 'TypedVariableModel`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
+      data:
+        ID:
+          m_Value0: 1
+          m_Value1: 0
+        Name: Self
+        IsExposed: 1
+        m_IsShared: 0
+        m_Value: {fileID: 0}
 --- !u!114 &-6661099801938343944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45,6 +126,19 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
+--- !u!114 &-3523047351686141773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b27bb6d9a2c8d540a10dff10acc543e, type: 3}
+  m_Name: NormalMonsterBehavior Debug Info
+  m_EditorClassIdentifier: 
+  m_CodeBreakPointsList: []
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,10 +153,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Blackboard: {fileID: -7938853657775057945}
   m_Description: 
-  m_Nodes: []
+  m_Nodes:
+  - rid: 2768364727399874632
   m_VersionTimestamp: 0
-  m_DebugInfo: {fileID: 0}
-  m_RuntimeGraph: {fileID: 0}
+  m_DebugInfo: {fileID: -3523047351686141773}
+  m_RuntimeGraph: {fileID: -8142297955601603297}
   AssetID:
     m_Value0: 15324770234610459564
     m_Value1: 6816415116410404776
@@ -77,4 +172,31 @@ MonoBehaviour:
     m_Commands: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 2768364727399874632
+      type: {class: StartNodeModel, ns: Unity.Behavior, asm: Unity.Behavior.Authoring}
+      data:
+        Position: {x: 0, y: 0}
+        ID:
+          m_Value0: 13025767587676689012
+          m_Value1: 17570907200456889607
+        Parents: []
+        PortModels:
+        - rid: 2768364727399874633
+        NodeType:
+          m_SerializableType: Unity.Behavior.Start, Unity.Behavior, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+        NodeTypeID:
+          m_Value0: 3335272451348827663
+          m_Value1: 11549843281177505721
+        m_FieldValues: []
+        Repeat: 1
+    - rid: 2768364727399874633
+      type: {class: PortModel, ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
+      data:
+        m_Name: OutputPort
+        m_PortDataFlowType: 1
+        m_IsFloating: 0
+        m_NodeModel:
+          rid: 2768364727399874632
+        m_Connections: []
