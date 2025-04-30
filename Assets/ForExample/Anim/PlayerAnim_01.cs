@@ -8,7 +8,7 @@ namespace RPGCharacterAnims
     // This class is used to handle animation events in Unity.
     // It provides UnityEvents for various character actions and movement.
     // The class also handles the Animator component and character controller.
-    public class PlayerAnim_01 : MonoBehaviour
+    public class Vid_AnimationEvent : MonoBehaviour
     {
 
         [Header("Projectile Settings")]
