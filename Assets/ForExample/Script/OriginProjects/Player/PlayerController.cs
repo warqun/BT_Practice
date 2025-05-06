@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
 
         rigbd = GetComponent<Rigidbody>();
         Animator = GetComponentInChildren<Animator>();
+        
     }
     /// <summary>
     /// 대쉬 가능 여부
@@ -75,31 +76,27 @@ public class PlayerController : MonoBehaviour
             Instantiate(Skills[SkillIndex], skillPos.transform.position, skillPos.transform.rotation);
         }
 
-        // Player Dash
-        {
-            
-        }
-
         //대쉬
         if (Input.GetKeyDown(KeyCode.LeftShift) && IsDashVaild == true)
         {
             isDash = true;
-            // 현재 방향을 기준으로 하는 벡터를 만듭니다.
+            // 현재 속도 초기화
             rigbd.linearVelocity = Vector3.zero;
+            
             //대쉬 방향
             dashVector = Vector3.zero;
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            
+            // 입력 방향으로 대시 방향 설정
+            Vector3 inputDirection = new Vector3(playerMoveVerctorX, 0, playerMoveVerctorY).normalized;
+            if (inputDirection != Vector3.zero)
             {
-                Vector3 targetPos = hit.point;
-                targetPos.y= transform.position.y;
-                //대쉬 방향 및 힘
-                Vector3 forceDirection = (targetPos - transform.position).normalized;
-                dashVector = forceDirection * dashSpeed;
+                dashVector = inputDirection * dashSpeed;
             }
-
-
-            // 이펙트 및 사운드 작동 구간.
+            else
+            {
+                // 입력이 없을 경우 정면 방향으로 대시
+                dashVector = transform.forward * dashSpeed;
+            }
 
             // AddForce에 현재 방향을 기준으로 하는 힘을 가합니다.
             rigbd.AddForce(dashVector, ForceMode.Impulse);
@@ -130,10 +127,19 @@ public class PlayerController : MonoBehaviour
 
         //대쉬 쿨타임 감소
         if(curDashCollTime > 0)
-            curDashCollTime -= Time.fixedDeltaTime; 
+        {
+            curDashCollTime -= Time.fixedDeltaTime;
+            
+            // 대시 중 y축 속도 제한
+            Vector3 currentVelocity = rigbd.linearVelocity;
+            currentVelocity.y = 0;
+            rigbd.linearVelocity = currentVelocity;
+        }
         else if(curDashCollTime <= 0)
         {
             isDash = false;
+            // 대시 종료 시 속도 초기화
+            rigbd.linearVelocity = Vector3.zero;
         }
     }
 }

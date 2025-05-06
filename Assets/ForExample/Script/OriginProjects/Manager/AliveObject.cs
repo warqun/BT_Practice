@@ -8,7 +8,7 @@ public class AliveObject : MonoBehaviour
     public ObjectDataType.AliveObjectType type = ObjectDataType.AliveObjectType.None;
     public bool isAlive = true;
 
-    // ObjectDataType.AliveObjectStatus ±â¹İÀ¸·Î ±¸¼ºµÈ ½ºÅ×ÀÌÅÍ½º ¹è¿­
+    // ObjectDataType.AliveObjectStatus ê´€ë ¨ëœ ìƒíƒœ ë°ì´í„° ë°°ì—´
     float[] statusValue = new float[(int)ObjectDataType.AliveObjectStatus.MAX];
     public float GetStatusValue(ObjectDataType.AliveObjectStatus statusType)
     {
@@ -23,12 +23,12 @@ public class AliveObject : MonoBehaviour
     protected bool allowDamage = true;
     public bool AllowDamage { get { return allowDamage; } set { allowDamage = value; } }
     /// <summary>
-    /// ¿©·¯ ¹«±â¿¡ ´ëÇÑ ÆÇÁ¤ Á¤¸®.
+    /// ë¬´ê¸° ì‚¬ì´í´ì— ëŒ€í•œ ë”•ì…”ë„ˆë¦¬
     /// </summary>
     protected Dictionary<WeaponBase, float> weaponCycle = new Dictionary<WeaponBase, float>();
 
     /// <summary>
-    /// ÇöÀç AliveObject°¡ µé°í ÀÖ´Â ¹öÇÁµé
+    /// í˜„ì¬ AliveObjectê°€ ê°€ì§„ ëª¨ë“  ë²„í”„
     /// </summary>
     protected List<BuffBase> buffList = new List<BuffBase>();
 
@@ -43,43 +43,44 @@ public class AliveObject : MonoBehaviour
             GetStatusValue(ObjectDataType.AliveObjectStatus.DP), 
             GetStatusValue(ObjectDataType.AliveObjectStatus.HPRegen), 
             type);
-        // ¸ğµç ÀÚ½Ä ¿ÀºêÁ§Æ®¿¡¼­ WeaponBase Ã£±â
-        WeaponBase[] weapons = GetComponentsInChildren<WeaponBase>();
+
+        // ëª¨ë“  ìì‹ ì˜¤ë¸Œì íŠ¸ì—ì„œ WeaponBase ì°¾ê¸°
+        WeaponBase[] weapons = GetComponentsInChildren<WeaponBase>(true); // ë¹„í™œì„±í™”ëœ ì˜¤ë¸Œì íŠ¸ë„ í¬í•¨
 
         if (weapons.Length > 0)
         {
             foreach (var weapon in weapons)
             {
                 weapon.master = this;
+                Debug.LogFormat("[Alive][Weapon][Find] {0}ì—ì„œ ë¬´ê¸° {1}ë¥¼ ì°¾ì•˜ìŠµë‹ˆë‹¤.", gameObject.name, weapon.name);
             }
         }
         else
         {
-            Debug.LogWarning("[Alive][Weapon][Find] WeaponBase¸¦ °¡Áø ÀÚ½Ä ¿ÀºêÁ§Æ®¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+            Debug.LogWarningFormat("[Alive][Weapon][Find] {0}ì—ì„œ WeaponBaseë¥¼ ê°€ì§„ ìì‹ ì˜¤ë¸Œì íŠ¸ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ë¬´ê¸°ê°€ í•„ìš”í•˜ì§€ ì•Šì€ ê²½ìš° ì´ ê²½ê³ ë¥¼ ë¬´ì‹œí•´ë„ ë©ë‹ˆë‹¤.", gameObject.name);
         }
     }
 
-    // ÁÖ´Â µ¥¹ÌÁö °è»ê.
+    // ë¬´ê¸° ì‚¬ì´í´ì— ëŒ€í•œ ì´ë²¤íŠ¸ í•¨ìˆ˜
     public virtual float DamageReqEvnet()
     {
         float attackPoint = 0;
         attackPoint = GetStatusValue(ObjectDataType.AliveObjectStatus.BasicDamage);
         Debug.LogFormat("[Alive][Damage][REQ] {0} - Damage:{1}",gameObject.name, GetStatusValue(ObjectDataType.AliveObjectStatus.BasicDamage));
         /// TODO
-        /// ¾ÆÀÌÅÛ °­È­ È¿°ú ¶Ç´Â ¾àÈ­ È¿°ú Ãß°¡
-        /// ½ºÅ×ÀÌÁö ¹öÇÁ¿¡ ÀÇÇÑ È¿°ú 
+        /// ë¬´ê¸° ì‚¬ì´í´ì— ëŒ€í•œ ì¶”ê°€ ì²˜ë¦¬ í•„ìš”
+        /// ë¬´ê¸° ì‚¬ì´í´ì— ëŒ€í•œ ìƒíƒœ ì²˜ë¦¬ í•„ìš” 
         
         return attackPoint;
     }
-    // µ¥¹ÌÁö¸¦ ¹ŞÀ» ¶§ °è»ê.
+    // ë¬´ê¸° ì‚¬ì´í´ì— ëŒ€í•œ ê²°ê³¼ ì´ë²¤íŠ¸ í•¨ìˆ˜
     public virtual void DamageResEvnet(float damage)
     {
-        /// ¾ÆÀÌÅÛ °­È­ È¿°ú ¶Ç´Â ¾àÈ­ È¿°ú Ãß°¡
-        /// ½ºÅ×ÀÌÁö ¹öÇÁ¿¡ ÀÇÇÑ È¿°ú 
+        /// ë¬´ê¸° ì‚¬ì´í´ì— ëŒ€í•œ ì¶”ê°€ ì²˜ë¦¬ í•„ìš”
+        /// ë¬´ê¸° ì‚¬ì´í´ì— ëŒ€í•œ ìƒíƒœ ì²˜ë¦¬ í•„ìš” 
         Debug.LogFormat("[Alive][Damage][RES] {0} - Damage:{1}, RemainHP:{2}", gameObject.name, damage, GetStatusValue(ObjectDataType.AliveObjectStatus.HP));
     }
-    // µ¥¹ÌÁö ÀÌº¥Æ®°¡ ¹ß»ıµÉ´ë ÀÏ¾î³ª´Â ÀÏ.
-    // ÇÇ°İ ¹«Àû, ÇÇ°İ »ö º¯È­, ÇÇ°İ ¾Ö´Ï¸ŞÀÌ¼Ç, ¾ÆÀÌÅÛ È¿°ú µî.
+    // ë¬´ê¸° ì‚¬ì´í´ì— ëŒ€í•œ ì´ë²¤íŠ¸ í•¨ìˆ˜
     public virtual void DamageEvnet()
     {
         Debug.LogFormat("[Alive][Damage][Event] Name:{0}, Type:{1}", gameObject.name, type);
@@ -99,7 +100,7 @@ public class AliveObject : MonoBehaviour
     protected virtual void Update()
     {
         {
-            // ÀÌ¹Ì µ¥¹ÌÁö ¹Ş°í ¹«Àû »óÅÂ µ¹ÀÔ»óÅÂ.
+            // ë¬´ê¸° ì‚¬ì´í´ì— ëŒ€í•œ íƒ€ì´ë¨¸ ì²˜ë¦¬
             if (allowDamage == false)
             {
                 damageTimer += Time.deltaTime;

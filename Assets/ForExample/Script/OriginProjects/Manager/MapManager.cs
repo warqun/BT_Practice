@@ -45,17 +45,22 @@ public class MapManager : ManagerBase
     public List<EventChunkData> eventChunkPresets;
 
     [System.Serializable]
-    public class PatternChunkData
+    public class MetaPatternChunk
     {
-        public PatternChunkType type;
-        public GameObject chunkPrefab; //불러올 청크 프리팹
-        public Vector2Int chunkPosition; //패턴 내 지정할 청크 위치
+        public Vector2Int localCoord; // 메타 패턴 내 위치 (예: (1,3))
+        public GameObject prefab;     // 해당 위치에 생성할 프리팹
     }
 
-    public List<PatternChunkData> patternChunkPresets;
-
+    [System.Serializable]
+    public class MetaPattern
+    {
+        public Vector2Int size = new Vector2Int(4, 4); // 메타 패턴의 가로, 세로 크기
+        public List<MetaPatternChunk> chunks = new List<MetaPatternChunk>();
+    }
 
     private Dictionary<Vector2Int, GameObject> loadedChunks = new Dictionary<Vector2Int, GameObject>();
+    public MetaPattern metaPattern;
+
     private void Awake()
     {
         instance = this;
@@ -121,57 +126,47 @@ public class MapManager : ManagerBase
     // ������ �������� ���� ûũ Ȱ��ȭ
     void LoadChunk(Vector2Int coord)
     {
-
-        GameObject chunk = new GameObject($"Chunk_{coord.x}_{coord.y}");
-        // ûũ�� ��ġ�� ����
-        chunk.transform.position = new Vector3(coord.x * patternChunkWidth.x, 0, coord.y * patternChunkWidth.y);
-        // ûũ�� �θ� ����
-        chunk.transform.parent = transform;
-
-        //찾은 이벤트 청크 저장받기
-        EventChunkData matchingEventChunk = null;
-        PatternChunkType patternType = PatternChunkType.PatternA; // 기본값
-
-        bool isEventChunk = false;
-        bool isPatternChunk = false;
-
-        //일치하는 이벤트 청크를 찾기 위한 루프
-        foreach (var chunkData in eventChunkPresets)
+        // 1. 이벤트 청크 우선
+        EventChunkData matchingEventChunk = eventChunkPresets.Find(e => e.chunkPosition == coord);
+        if (matchingEventChunk != null)
         {
-            if (chunkData.chunkPosition == coord)
+            GameObject chunk = new GameObject($"EventChunk_{coord.x}_{coord.y}");
+            chunk.transform.position = new Vector3(coord.x * patternChunkWidth.x, 0, coord.y * patternChunkWidth.y);
+            chunk.transform.parent = transform;
+            Instantiate(matchingEventChunk.chunkPrefab, chunk.transform.position, Quaternion.identity, chunk.transform);
+            loadedChunks[coord] = chunk;
+            return;
+        }
+
+        // 2. 메타 패턴 청크
+        if (metaPattern != null && metaPattern.size.x > 0 && metaPattern.size.y > 0)
+        {
+            // 메타 패턴 내 위치 계산 (반복)
+            int localX = Mod(Mod(coord.x, metaPattern.size.x), metaPattern.size.x);
+            int localY = Mod(Mod(coord.y, metaPattern.size.y), metaPattern.size.y);
+            Vector2Int localCoord = new Vector2Int(localX, localY);
+
+            MetaPatternChunk patternChunk = metaPattern.chunks.Find(c => c.localCoord == localCoord);
+            if (patternChunk != null && patternChunk.prefab != null)
             {
-                isEventChunk = true;
-                matchingEventChunk = chunkData;
+                GameObject chunk = new GameObject($"MetaPatternChunk_{coord.x}_{coord.y}");
+                chunk.transform.position = new Vector3(coord.x * patternChunkWidth.x, 0, coord.y * patternChunkWidth.y);
+                chunk.transform.parent = transform;
+                Instantiate(patternChunk.prefab, chunk.transform.position, Quaternion.identity, chunk.transform);
+                loadedChunks[coord] = chunk;
+                return;
             }
         }
 
-        //if (isEventChunk == false)
-        //{
-        //    Vector2Int localIndex = new Vector2Int(
-        //        Mod(coord.x, patternChunkWidth.x),
-        //        Mod(coord.y, patternChunkWidth.y)
-        //    );
-        //}
-
-        Vector3 tilePosition = new Vector3(coord.x * patternChunkWidth.x + patternChunkWidth.x, 0, coord.y * patternChunkWidth.y + patternChunkWidth.y);
-
-        // ûũ�� ���������� ��ġ�� ûũ�� �ִ��� Ȯ��
-        if (matchingEventChunk != null)
-        {
-            // 이벤트 청크 프리팹을 사용하여 청크를 생성
-            Instantiate(matchingEventChunk.chunkPrefab, tilePosition, Quaternion.identity, chunk.transform);
-        }
-        else
-        {
-            // 기초 타일 프리팹을 사용하여 타일을 생성
-            Instantiate(defaultTilePrefab, tilePosition, Quaternion.identity, chunk.transform);
-            Debug.LogError($"[MapManager] Error: No matching event or pattern chunk preset for coord {coord}");
-        }
-
-        loadedChunks[coord] = chunk;
+        // 3. 기본 타일
+        GameObject defaultChunk = new GameObject($"DefaultChunk_{coord.x}_{coord.y}");
+        defaultChunk.transform.position = new Vector3(coord.x * patternChunkWidth.x, 0, coord.y * patternChunkWidth.y);
+        defaultChunk.transform.parent = transform;
+        Instantiate(defaultTilePrefab, defaultChunk.transform.position, Quaternion.identity, defaultChunk.transform);
+        loadedChunks[coord] = defaultChunk;
     }
 
-    // �������� ������ �������� ��� ûũ�� ��Ȱ��ȭ
+    //청크제거
     void UnloadChunk(Vector2Int coord)
     {
         if (loadedChunks.ContainsKey(coord))
