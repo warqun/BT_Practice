@@ -95,14 +95,24 @@ namespace OriginProject.Mob
             if (distance > camera.viewDistance)
                 return true;
 
-            // 카메라 전방 벡터와의 각도 체크
-            float3 dirNormalized = math.normalize(dirToPosition);
-            float dotProduct = math.dot(dirNormalized, camera.forward);
-            float angleInRadians = math.acos(dotProduct);
-            float angleInDegrees = angleInRadians * 57.2958f; // 라디안을 도로 변환
-
-            // 시야각의 절반과 비교
-            return angleInDegrees > camera.fieldOfView * 0.5f;
+            // 오소그래픽 카메라의 경우 2D 평면상의 범위 계산
+            // 카메라 forward 벡터를 기준으로 플레이어가 보는 방향의 평면 좌표계로 변환
+            float3 right = math.cross(camera.forward, new float3(0, 1, 0));
+            float3 up = math.cross(right, camera.forward);
+            
+            right = math.normalize(right);
+            up = math.normalize(up);
+            
+            // 위치를 카메라 좌표계로 변환
+            float rightDot = math.dot(dirToPosition, right);
+            float upDot = math.dot(dirToPosition, up);
+            
+            // 오소그래픽 사이즈와 화면 비율로 카메라의 가시 범위 계산
+            float horizontalSize = camera.orthographicSize * camera.aspectRatio;
+            float verticalSize = camera.orthographicSize;
+            
+            // 가시 범위 밖이면 true
+            return math.abs(rightDot) > horizontalSize || math.abs(upDot) > verticalSize;
         }
     }
 } 

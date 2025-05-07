@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6164889612457478378}
   - component: {fileID: 7259481879375468725}
   - component: {fileID: 3789745422518513218}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AddFire_Slugshot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,6 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifetime: 0.5
   speed: 10
+  AllowMultipleCreate: 0
 --- !u!114 &7259481879375468725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab8558705690b434ea90fefdabe9aece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowMultipleCreate: 1
   prefabs: {fileID: 8077439367272933105, guid: 90ba5ce5a3a301a42a07f73ec0aa78ec, type: 3}
   count: 5
   totalAngle: 60

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1645978417522584735}
   - component: {fileID: 2403580619412075458}
   - component: {fileID: 1938860964663877712}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Explosive_Slugshot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,6 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifetime: 0.5
   speed: 10
+  AllowMultipleCreate: 0
 --- !u!114 &1938860964663877712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab8558705690b434ea90fefdabe9aece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowMultipleCreate: 1
   prefabs: {fileID: 7287324214899419024, guid: ede39c2edcfa15c4081a11de660b01c7, type: 3}
   count: 5
   totalAngle: 60

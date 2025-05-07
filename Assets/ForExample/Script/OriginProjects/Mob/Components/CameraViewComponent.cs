@@ -8,8 +8,8 @@ namespace OriginProject.Mob
     {
         public float3 position;         // 카메라 위치
         public float3 forward;          // 카메라 전방 벡터
-        public float fieldOfView;       // 시야각
         public float viewDistance;      // 시야 거리
         public float aspectRatio;       // 화면 비율
+        public float orthographicSize;  // 오소그래픽 카메라 크기
     }
 } 

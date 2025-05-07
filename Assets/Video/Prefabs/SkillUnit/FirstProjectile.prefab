@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7981930205754179575}
   - component: {fileID: 5018401909908394631}
   - component: {fileID: 4654141554380817453}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FirstProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,3 +123,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifetime: 0.5
   speed: 10
+  AllowMultipleCreate: 0

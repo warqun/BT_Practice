@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4691462769932309824}
   - component: {fileID: 6565209535379015973}
   - component: {fileID: 4801753686200958856}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Slugshot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,6 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifetime: 0.5
   speed: 10
+  AllowMultipleCreate: 0
 --- !u!114 &4801753686200958856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab8558705690b434ea90fefdabe9aece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowMultipleCreate: 1
   prefabs: {fileID: 5720559450139353161, guid: 23d699157d5b52b489e619346390269b, type: 3}
   count: 5
   totalAngle: 60

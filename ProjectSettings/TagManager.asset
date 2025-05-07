@@ -9,12 +9,12 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - SkillObj
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Monster
+  - Player
+  - Maps
   - 
   - 
   - 

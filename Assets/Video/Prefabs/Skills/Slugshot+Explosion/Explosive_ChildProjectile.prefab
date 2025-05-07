@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3577269192276853034}
   - component: {fileID: 4180940794850258171}
   - component: {fileID: 7372863978241788038}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Explosive_ChildProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
