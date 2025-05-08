@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3919664128725698569}
   - component: {fileID: 8250048816854447766}
+  - component: {fileID: 1561899677608618097}
+  - component: {fileID: 1221028830514799721}
   m_Layer: 6
   m_Name: NormalMob_Range
   m_TagString: Untagged
@@ -45,13 +47,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2d76a6b95afb3e44b479770654efb31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 2
   isAlive: 1
   maxHealth: 100
-  attackRange: 2
+  attackRange: 10
   attackCooldown: 1
-  detectionRange: 10
-  attackDetectionRange: 2
+  detectionRange: 50
+  attackDetectionRange: 10
+--- !u!195 &1561899677608618097
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6014769066962627299}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 0
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!136 &1221028830514799721
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6014769066962627299}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1001 &2702937019071381079
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -308,6 +355,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 95305070307913142, guid: 2b8c202f3d8aab24f80a30b09b342ec4, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5640dbdcf8bdaa744b0c034e087a354d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1940262191507620, guid: 2b8c202f3d8aab24f80a30b09b342ec4, type: 3}
@@ -382,9 +433,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2707467194549077073}
     m_Modifications:
+    - target: {fileID: 1179598229620018, guid: 724a05e511db5fa418277d5c2270f07d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1247432791409562, guid: 724a05e511db5fa418277d5c2270f07d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1333114963308854, guid: 724a05e511db5fa418277d5c2270f07d, type: 3}
       propertyPath: m_Name
       value: SM_Wep_MachinePistol_Gen2_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1333114963308854, guid: 724a05e511db5fa418277d5c2270f07d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1597203421068184, guid: 724a05e511db5fa418277d5c2270f07d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1669772079682476, guid: 724a05e511db5fa418277d5c2270f07d, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4940183928090928, guid: 724a05e511db5fa418277d5c2270f07d, type: 3}
       propertyPath: m_LocalScale.x

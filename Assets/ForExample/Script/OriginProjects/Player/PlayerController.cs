@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
     float dashCollTime = 0.3f;
     float curDashCollTime = 0f;
 
+    public static Transform playerTransform;
+
     private Animator Animator;
 
     Rigidbody rigbd = null;
@@ -103,6 +105,7 @@ public class PlayerController : MonoBehaviour
 
             curDashCollTime = dashCollTime;
         }
+        playerTransform = transform;
     }
 
     void skillSwap()

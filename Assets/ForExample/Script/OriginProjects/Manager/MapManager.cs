@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -16,7 +17,10 @@ public class MapManager : ManagerBase
     public Vector2Int patternChunkWidth = new Vector2Int(40, 40); // 패턴 청크의 가로 세로 길이
     public int renderDistance = 5; // 랜더링 거리(플레이어 청크를 기준으로 전후좌우 몇개의 청크를 로드할지)
     public GameObject defaultTilePrefab; // 디폴트 타입 프리팹
-    
+
+    private NavMeshSurface navMeshSurface;
+
+    bool navMeshNeedsUpdate = true;
 
     public enum EventChunkType
     {
@@ -96,6 +100,8 @@ public class MapManager : ManagerBase
             }
         }
 
+        
+
         //������ ûũ���� ��ǥ�� ���� ����Ʈ�� ����
         List<Vector2Int> chunksToRemove = new List<Vector2Int>();
 
@@ -106,6 +112,7 @@ public class MapManager : ManagerBase
             if (!activeChunks.Contains(chunk))
             {
                 chunksToRemove.Add(chunk);
+                navMeshNeedsUpdate = true; // 네비메시 업데이트 필요
             }
         }
 
@@ -114,6 +121,13 @@ public class MapManager : ManagerBase
         {
             UnloadChunk(chunk);
         }
+
+        // 청크 로드 후 네비메시 빌드
+        if (navMeshNeedsUpdate)
+        {
+            navMeshNeedsUpdate = false;
+            BakeGlobalNavMesh();
+        }
     }
 
     //벡터int로 받은 좌표로 불러올 패턴 청크의 인덱스에 맞게 변환하는 메서드
@@ -121,6 +135,15 @@ public class MapManager : ManagerBase
     {
         return (a % b + b) % b;
     }
+
+    private void BakeGlobalNavMesh()
+    {
+        if (navMeshSurface == null)
+            navMeshSurface = GetComponent<NavMeshSurface>();
+
+        navMeshSurface.BuildNavMesh();
+    }
+
 
 
     // ������ �������� ���� ûũ Ȱ��ȭ

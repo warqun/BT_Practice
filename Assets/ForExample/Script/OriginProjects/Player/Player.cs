@@ -4,9 +4,10 @@ public class Player : AliveObject
 {
     [HideInInspector]
     public Rigidbody rigidbody = null;
+    
     private void Awake()
     {
-        // ³ªÁß¿¡ DB¸¦ ¾²µç ÆÄÀÏ ½Ã½ºÅÛÀ» ¾²µç ¿¢¼¿¾²µç ´Ù¸¥ °÷¿¡¼­ µî·ÏÇÏ°Ô ¼³Á¤.
+        // ï¿½ï¿½ï¿½ß¿ï¿½ DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½.
         SetStatusValue(ObjectDataType.AliveObjectStatus.HP,100);
         SetStatusValue(ObjectDataType.AliveObjectStatus.DP,1);
         SetStatusValue(ObjectDataType.AliveObjectStatus.Speed,3);
@@ -15,6 +16,7 @@ public class Player : AliveObject
         resDamageTick = 5;
         type = ObjectDataType.AliveObjectType.Player;
         rigidbody = GetComponent<Rigidbody>();
+
     }
     protected override void Start()
     {
@@ -40,14 +42,14 @@ public class Player : AliveObject
             isAlive = false;
         Debug.LogFormat("[Player][Damage][RES] {0} - Damage:{1}, RemainHP:{2}", gameObject.name, damage, hp);
     }
-    /// Æ®¸®°Å¿¡ Ãæµ¹ÇßÀ»¶§
+    /// Æ®ï¿½ï¿½ï¿½Å¿ï¿½ ï¿½æµ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     private void OnTriggerEnter(Collider other)
     {
-        // º£ÀÌ½º¿¡¼­ ¹«±â¿¡ µû¸¥ ¹«ÀûÅ¸ÀÌ¸Ó ¼³Á¤µÊ.
+        // ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
         {
-            /// ¹«±â¿¡ ÀÇÇÑ µ¥¹ÌÁö
-            /// Æ¯Á¤ °æ¿ì¿¡ µµÆ® µ©À¸·Î µé¾î¿Í¾ßÇÏ´Â °æ¿ì.
+            /// ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            /// Æ¯ï¿½ï¿½ ï¿½ï¿½ì¿¡ ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í¾ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½.
             WeaponBase triggerWeapon = other.GetComponent<WeaponBase>();
 
             if (triggerWeapon != null)
@@ -56,14 +58,14 @@ public class Player : AliveObject
                 {
                     if (triggerWeapon.master == null)
                         return;
-                    // Á×¾îÀÖ´Â »óÅÂÀÏ¶§ µ¥¹ÌÁö ÆÇÁ¤ Á¾·á.
+                    // ï¿½×¾ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
                     if (triggerWeapon.master.isAlive == false)
                         return;
-                    // ¹«±â ÁÖÀÎ¿¡ µû¶ó µ¥¹ÌÁö 
+                    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
                     switch (triggerWeapon.master.type)
                     {
                         case ObjectDataType.AliveObjectType.Mob:
-                            // ¹«±â¿¡ µû¸¥ Â÷º°Á¡ÀÌ »ý±æ´ë Ãß°¡.
+                            // ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½.
                             ObjectDamage damageReport = new ObjectDamage(triggerWeapon.DamageReqEvnet, DamageResEvnet);
                             damageReport.AddEvnet(DamageEvnet);
                             damageReport.AddEvnet(triggerWeapon.DamageEvnet);
@@ -71,7 +73,7 @@ public class Player : AliveObject
                             break;
                     }
 
-                    // Á¢ÃË Áß¿¡ µ¥¹ÌÁö °è»ê.
+                    // ï¿½ï¿½ï¿½ï¿½ ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½.
                     float weaponTimer = triggerWeapon.WeaponDamageTypeTick();
                     if (weaponTimer > 0)
                     {
@@ -88,8 +90,8 @@ public class Player : AliveObject
         if (allowDamage == true)
         {
             {
-                // ´ÙÀÌ·ºÆ® µ¥¹ÌÁö »ç¿ë¾ÈÇÔ.
-                // ´ÙÀÌ·ºÆ® µ¥¹ÌÁö.
+                // ï¿½ï¿½ï¿½Ì·ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+                // ï¿½ï¿½ï¿½Ì·ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
                 //AliveObject triggerObject = other.GetComponent<AliveObject>();
                 //if (triggerObject != null)
                 //{
@@ -100,36 +102,36 @@ public class Player : AliveObject
                 //            damageReport.AddEvnet(DamageEvnet);
                 //            damageReport.AddEvnet(triggerObject.DamageEvnet);
 
-                //            // ¾ÆÀÌÅÛ ¶Ç´Â Ãß°¡µÇ´Â ¹æ½ÄÀº ¿©±â·Î.
+                //            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ß°ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 
                 //            GameBase.gameBase.AddDamageEvent(damageReport);
                 //            break;
                 //    }
                 //}
             }
-            // ¹«Àû È°¼ºÈ­.
+            // ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­.
             allowDamage = false;
         }
-        // º£ÀÌ½º¿¡¼­ ¹«±â¿¡ µû¸¥ ¹«ÀûÅ¸ÀÌ¸Ó ¼³Á¤µÊ.
+        // ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
         {
-            /// ¹«±â¿¡ ÀÇÇÑ µ¥¹ÌÁö
-            /// Æ¯Á¤ °æ¿ì¿¡ µµÆ® µ©À¸·Î µé¾î¿Í¾ßÇÏ´Â °æ¿ì.
+            /// ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            /// Æ¯ï¿½ï¿½ ï¿½ï¿½ì¿¡ ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í¾ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½.
             WeaponBase triggerWeapon = other.GetComponent<WeaponBase>();
             if (triggerWeapon != null)
             {
                 if (triggerWeapon.master == null)
                     return;
-                // Á×¾îÀÖ´Â »óÅÂÀÏ¶§ µ¥¹ÌÁö ÆÇÁ¤ Á¾·á.
+                // ï¿½×¾ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
                 if (triggerWeapon.master.isAlive == false)
                     return;
                 float weaponTime = 0;
                 if (weaponCycle.TryGetValue(triggerWeapon, out weaponTime))
                 {
-                    // 0 º¸´Ù ÀÛÀº µ¥¹ÌÁö Å¸ÀÌ¸Ó´Â ÀÛµ¿ÇÏÁö ¾Ê´Â´Ù.
+                    // 0 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½Ì¸Ó´ï¿½ ï¿½Ûµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
                     if (weaponTime > 0)
                     {
                         weaponTime -= Time.fixedDeltaTime;
-                        // Å¸ÀÌ¸Ó ¼Ò¸ð½Ã ¿ø»óº¹±Í
+                        // Å¸ï¿½Ì¸ï¿½ ï¿½Ò¸ï¿½ï¿½ ï¿½ï¿½ï¿½óº¹±ï¿½
                         bool useTickDamage = false;
                         if (weaponTime < 0)
                         {
@@ -141,13 +143,13 @@ public class Player : AliveObject
                             weaponCycle[triggerWeapon] = weaponTime;
                             useTickDamage = false;
                         }
-                        // Å¸ÀÌ¸Ó°¡ µÇ¾úÀ»¶§ µ¥¹ÌÁö °è»ê.
+                        // Å¸ï¿½Ì¸Ó°ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½.
                         if (useTickDamage)
                         {
                             switch (triggerWeapon.master.type)
                             {
                                 case ObjectDataType.AliveObjectType.Player:
-                                    // ¹«±â¿¡ µû¸¥ Â÷º°Á¡ÀÌ »ý±æ´ë Ãß°¡.
+                                    // ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½.
                                     ObjectDamage damageReport = new ObjectDamage(triggerWeapon.DamageReqEvnet, DamageResEvnet);
                                     damageReport.AddEvnet(DamageEvnet);
                                     damageReport.AddEvnet(triggerWeapon.DamageEvnet);

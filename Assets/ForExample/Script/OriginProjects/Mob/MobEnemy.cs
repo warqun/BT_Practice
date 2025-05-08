@@ -28,11 +28,14 @@ public class MobEnemy : MobRoot
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
 
-        if (GameBase.gameBase.player != null)
-            target = GameBase.gameBase.player.transform;
-
+        // 플레이어의 transform을 static으로 참조
+        if (PlayerController.playerTransform == null)
+        {
+            Debug.LogWarning("[MobEnemy] Player transform not assigned.");
+        }
+        
         // 초기 상태를 대기 상태로 설정
-        ChangeState(new IdleState(this));
+        ChangeState(new ChaseState(this));
     }
 
     protected override void FrameMobMove()
@@ -42,6 +45,7 @@ public class MobEnemy : MobRoot
 
     public void ChangeState(IEnemyState newState)
     {
+        Debug.Log($"[MobEnemy] State changed to: {newState.GetType().Name}");
         currentState?.Exit();
         currentState = newState;
         currentState?.Enter();
@@ -60,8 +64,7 @@ public class MobEnemy : MobRoot
 
     private void Die()
     {
-        animator.SetTrigger("Die");
-        agent.isStopped = true;
+        agent.ResetPath();
         enabled = false;
         // TODO: 사망 처리 (파괴 또는 비활성화)
     }
@@ -74,18 +77,16 @@ public class MobEnemy : MobRoot
 
     public void MoveToTarget()
     {
+        target = PlayerController.playerTransform;
         if (target != null)
         {
-            agent.isStopped = false;
             agent.SetDestination(target.position);
-            animator.SetBool("Walk", true);
         }
     }
 
     public void StopMoving()
     {
-        agent.isStopped = true;
-        animator.SetBool("Walk", false);
+        agent.ResetPath();
     }
 
     public void TryAttack()
@@ -165,6 +166,10 @@ public class ChaseState : IEnemyState
         else if (distance <= enemy.attackDetectionRange)
         {
             enemy.ChangeState(new AttackState(enemy));
+        }
+        else
+        {
+            enemy.MoveToTarget();
         }
     }
 
